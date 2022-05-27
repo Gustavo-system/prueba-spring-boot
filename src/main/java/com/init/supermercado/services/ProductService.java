@@ -25,7 +25,12 @@ public class ProductService {
 	
 	public Products getOneProduct(int id) {
 		Products product = null;
-		product = productList.stream().filter(item -> item.getId() == id).findFirst().get();
+		try {
+			product = productList.stream().filter(item -> item.getId() == id).findFirst().get();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
 		return product;
 	}
 	

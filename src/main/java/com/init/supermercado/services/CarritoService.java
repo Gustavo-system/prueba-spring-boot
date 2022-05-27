@@ -4,12 +4,18 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.init.supermercado.models.Carrito;
+import com.init.supermercado.models.Products;
 
 @Service
 public class CarritoService {
+	
+	@Autowired
+	private ProductService productService;
+		
 	private List<Carrito> carritoList = new ArrayList<>(Arrays.asList(
 			new Carrito(1, 1, 1, 1),
 			new Carrito(2, 2, 6, 2)
@@ -38,6 +44,10 @@ public class CarritoService {
 	
 	public void deleteCarrito(int id) {
 		carritoList.removeIf(carrito -> carrito.getId() == id);
+	}
+	
+	public Products formatProducts(int id) {
+		return productService.getOneProduct(id);
 	}
 	
 }

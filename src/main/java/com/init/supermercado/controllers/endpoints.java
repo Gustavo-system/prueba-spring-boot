@@ -3,6 +3,8 @@ package com.init.supermercado.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -59,9 +61,10 @@ public class endpoints {
 		return carritoService.getCarrito(id_user);
 	}
 	
-	@RequestMapping(value="carrito", method=RequestMethod.POST)
-	public void addToCarrito(@RequestBody Carrito carrito) {
+	@RequestMapping(value="carrito", method=RequestMethod.POST)	
+	public ResponseEntity<Carrito> addToCarrito(@RequestBody Carrito carrito) {
 		carritoService.addToCarrito(carrito);
+	    return new ResponseEntity<Carrito>(carrito,null,HttpStatus.CREATED);
 	}
 	
 	@RequestMapping(value="carrito/{id}", method=RequestMethod.PUT)

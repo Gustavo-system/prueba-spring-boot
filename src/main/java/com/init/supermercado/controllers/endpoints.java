@@ -22,6 +22,7 @@ import org.springframework.http.MediaType;
 import com.init.supermercado.models.Carrito;
 import com.init.supermercado.models.Products;
 import com.init.supermercado.models.Users;
+import com.init.supermercado.services.AnotherAPI;
 import com.init.supermercado.services.CarritoService;
 import com.init.supermercado.services.ProductService;
 import com.init.supermercado.services.UserService;
@@ -36,6 +37,8 @@ public class endpoints {
 	private UserService userService;
 	@Autowired
 	private CarritoService carritoService;
+	@Autowired
+	private AnotherAPI otherAPI;
 	
 	
 	// PRODUCTS
@@ -108,9 +111,9 @@ public class endpoints {
 		carritoService.deleteCarrito(id);
 	}
 	
-	@GetMapping(path = "hola")
-	public String hello() {
-		return "{'menssage':'Hola mundo'}";
+	@GetMapping(path = "/other_api")
+	public Object getOtherAPI() {
+		return otherAPI.getAPI();
 	}
 	
 }

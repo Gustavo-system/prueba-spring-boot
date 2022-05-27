@@ -42,7 +42,13 @@ public class CarritoService {
 			for(Carrito item:carritoList) {
 				if(item.getId() == id) {
 					int oldId = item.getId();
+					int oldProduct = item.getId_product();
+					int user = item.getId_user();
+					
 					carrito.setId(oldId);
+					carrito.setId_product(oldProduct);
+					carrito.setId_user(user);
+					
 					carritoList.set(counter, carrito);
 				}
 				counter++;

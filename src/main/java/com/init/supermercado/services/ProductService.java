@@ -28,7 +28,8 @@ public class ProductService {
 		try {
 			product = productList.stream().filter(item -> item.getId() == id).findFirst().get();
 		}catch(Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace();
+			System.out.println("NOT FUND 404");
 		}
 		
 		return product;

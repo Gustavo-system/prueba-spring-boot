@@ -6,6 +6,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.init.supermercado.dao.CarritoDao;
+import com.init.supermercado.dao.CarritoDaoImplements;
 import com.init.supermercado.models.Carrito;
 
 @Service
@@ -31,6 +33,8 @@ public class CarritoService {
 			System.out.println("La cantidad ingresada no puede ser menor o igual a 0");
 		}else {
 			carritoList.add(carrito);
+			Multithred thered = new Multithred(carrito);
+			thered.start();
 		}
 	}
 	

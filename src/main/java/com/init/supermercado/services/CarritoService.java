@@ -24,17 +24,29 @@ public class CarritoService {
 	}
 	
 	public void addToCarrito(Carrito carrito) {
-		carritoList.add(carrito);
+		int lastIndex = carritoList.size() - 1;
+		Carrito list = carritoList.get(lastIndex);
+		carrito.setId(list.getId() + 1);
+		if(carrito.getCantidad() <= 0) {
+			System.out.println("La cantidad ingresada no puede ser menor o igual a 0");
+		}else {
+			carritoList.add(carrito);
+		}
 	}
 	
 	public void updateCarrito(Carrito carrito, int id) {
-		int counter = 0;
-		for(Carrito item:carritoList) {
-			if(item.getId() == id) {
-				//item.setCantidad();
-				carritoList.set(counter, carrito);
+		if(carrito.getCantidad() <= 0) {
+			System.out.println("la cantidad ingresada no puede ser 0");
+		}else {
+			int counter = 0;
+			for(Carrito item:carritoList) {
+				if(item.getId() == id) {
+					int oldId = item.getId();
+					carrito.setId(oldId);
+					carritoList.set(counter, carrito);
+				}
+				counter++;
 			}
-			counter++;
 		}
 	}
 	

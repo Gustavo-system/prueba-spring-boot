@@ -6,11 +6,14 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.init.supermercado.models.Carrito;
@@ -68,7 +71,7 @@ public class endpoints {
 	
 	//CARRITO
 	@RequestMapping(value="carrito", method=RequestMethod.GET)
-	public ResponseEntity<List<Carrito>> getCarrito(@RequestParam(required = false, defaultValue = "0") int id_user){
+	public ResponseEntity<List<Carrito>> getMyCarrito(@RequestHeader(name = "x-id-usuario", required = false, defaultValue = "0") int id_user){
 		List<Carrito> carrito = carritoService.getCarrito(id_user);
 		if(carrito.size() <= 0) {
 			return ResponseEntity.status(HttpStatus.OK).build(); 
@@ -89,8 +92,13 @@ public class endpoints {
 	}
 	
 	@RequestMapping(value="carrito/{id}", method=RequestMethod.DELETE)
-	public void deleteCarrito(@PathVariable("id") int id) {
+	@ResponseBody public void deleteCarrito(@PathVariable("id") int id) {
 		carritoService.deleteCarrito(id);
+	}
+	
+	@GetMapping(path = "hola")
+	public String hello() {
+		return "{'menssage':'Hola mundo'}";
 	}
 	
 }

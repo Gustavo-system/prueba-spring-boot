@@ -31,6 +31,7 @@ public class CarritoService {
 		int counter = 0;
 		for(Carrito item:carritoList) {
 			if(item.getId() == id) {
+				//item.setCantidad();
 				carritoList.set(counter, carrito);
 			}
 			counter++;

@@ -1,6 +1,7 @@
 package com.init.supermercado.controllers;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -33,13 +34,23 @@ public class endpoints {
 	
 	// PRODUCTS
 	@RequestMapping(value="products", method=RequestMethod.GET)
-	public List<Products> getProducts(){
-		return productService.getAllProducts();
+	public ResponseEntity<List<Products>> getProducts(){
+		List<Products> producs = productService.getAllProducts();
+		if(producs.size() <= 0) {
+			return ResponseEntity.status(HttpStatus.OK).build(); 
+		}
+		
+		return ResponseEntity.of(Optional.of(producs));
 	}
 	
 	@RequestMapping(value="products/{id}", method=RequestMethod.GET)
-	public Products getProduct(@PathVariable("id") int id){
-		return productService.getOneProduct(id);
+	public ResponseEntity<Products> getProduct(@PathVariable("id") int id){
+		Products product = productService.getOneProduct(id);
+		if(product == null) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+		}
+		
+		return ResponseEntity.of(Optional.of(product));
 	}
 	
 	@RequestMapping(value="products/{id}", method=RequestMethod.DELETE)
@@ -57,8 +68,13 @@ public class endpoints {
 	
 	//CARRITO
 	@RequestMapping(value="carrito", method=RequestMethod.GET)
-	public List<Carrito> getCarrito(@RequestParam(required = false, defaultValue = "0") int id_user){
-		return carritoService.getCarrito(id_user);
+	public ResponseEntity<List<Carrito>> getCarrito(@RequestParam(required = false, defaultValue = "0") int id_user){
+		List<Carrito> carrito = carritoService.getCarrito(id_user);
+		if(carrito.size() <= 0) {
+			return ResponseEntity.status(HttpStatus.OK).build(); 
+		}
+		
+		return ResponseEntity.of(Optional.of(carrito));
 	}
 	
 	@RequestMapping(value="carrito", method=RequestMethod.POST)	

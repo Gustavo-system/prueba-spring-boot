@@ -24,7 +24,9 @@ public class ProductService {
 	}
 	
 	public Products getOneProduct(int id) {
-		return productList.stream().filter(product -> product.getId() == id).findFirst().get();
+		Products product = null;
+		product = productList.stream().filter(item -> item.getId() == id).findFirst().get();
+		return product;
 	}
 	
 	public void deleteProduct(int id) {

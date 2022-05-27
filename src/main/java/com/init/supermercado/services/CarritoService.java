@@ -12,10 +12,13 @@ import com.init.supermercado.models.Carrito;
 public class CarritoService {
 	private List<Carrito> carritoList = new ArrayList<>(Arrays.asList(
 			new Carrito(1, 1, 1, 1),
-			new Carrito(2, 1, 6, 2)
+			new Carrito(2, 2, 6, 2)
 	));
 	
-	public List<Carrito> getCarrito(){
+	public List<Carrito> getCarrito(int id_user){
+		if(id_user != 0) {
+			return carritoList.stream().filter(item -> item.getId_user() == id_user).toList();
+		}
 		return carritoList;
 	}
 	

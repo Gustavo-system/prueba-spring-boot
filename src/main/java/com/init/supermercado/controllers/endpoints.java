@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.init.supermercado.models.Carrito;
@@ -54,8 +55,8 @@ public class endpoints {
 	
 	//CARRITO
 	@RequestMapping(value="carrito", method=RequestMethod.GET)
-	public List<Carrito> getCarrito(){
-		return carritoService.getCarrito();
+	public List<Carrito> getCarrito(@RequestParam(required = false, defaultValue = "0") int id_user){
+		return carritoService.getCarrito(id_user);
 	}
 	
 	@RequestMapping(value="carrito", method=RequestMethod.POST)
@@ -72,4 +73,5 @@ public class endpoints {
 	public void deleteCarrito(@PathVariable("id") int id) {
 		carritoService.deleteCarrito(id);
 	}
+	
 }
